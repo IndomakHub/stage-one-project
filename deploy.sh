@@ -27,15 +27,11 @@ REPO_URL="https://github.com/IndomakHub/stage-one-project.git"
 BRANCH="main"
 SERVER_USER="ubuntu"
 SERVER_IP="3.90.103.160"
-SSH_KEY="C:/Users/OWNER/OneDrive/Documents/AWS-KEYS.pem"
+SSH_KEY="aws-key.pem"
 APP_PORT="8080"
 
-# Use GitHub token for authentication
-# 👉 Before running this script, export your token in terminal:
-# export GITHUB_TOKEN="ghp_yourGitHubAccessTokenHere"
-# (Never hardcode tokens inside scripts!)
+# Use GitHub token for authentication (if private repo)
 AUTH_REPO_URL="https://${GITHUB_TOKEN}@github.com/IndomakHub/stage-one-project.git"
-
 WORKDIR=$(basename "$REPO_URL" .git)
 
 echo "[INFO] Repository: $REPO_URL"
@@ -47,8 +43,8 @@ echo "----------------------------------------"
 # ===========================
 # Step 2: GitHub Access Setup
 # ===========================
-# Trust GitHub host key (avoid "Host key verification failed")
 mkdir -p ~/.ssh
+chmod 700 ~/.ssh
 ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
 
 # ===========================
@@ -68,6 +64,7 @@ fi
 # Step 4: Transfer Files to Remote Server
 # ===========================
 echo "[INFO] Transferring files to remote server..."
+chmod 600 "$SSH_KEY"
 scp -o StrictHostKeyChecking=no -i "$SSH_KEY" -r * "$SERVER_USER@$SERVER_IP:/tmp/$WORKDIR"
 
 # ===========================
@@ -119,7 +116,7 @@ server {
 }
 NGINXCONF
 
-sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/app
+sudo ln -sf \$NGINX_CONF /etc/nginx/sites-enabled/app
 sudo nginx -t
 sudo systemctl reload nginx
 
@@ -132,5 +129,5 @@ echo " Application is live at: http://$SERVER_IP"
 EOF
 
 echo "----------------------------------------"
-echo " Deployment finished successfully!"
-echo " Logs saved to: $LOG_FILE"
+echo "✅ Deployment finished successfully!"
+echo "📜 Logs saved to: $LOG_FILE"
