@@ -27,7 +27,7 @@ REPO_URL="https://github.com/IndomakHub/stage-one-project.git"
 BRANCH="main"
 SERVER_USER="ubuntu"
 SERVER_IP="3.90.103.160"
-SSH_KEY="$HOME/AWS-KEYS.pem"
+SSH_KEY="C:/Users/OWNER/OneDrive/Documents/AWS-KEYS.pem"
 APP_PORT="8080"
 
 # Use GitHub token for authentication
