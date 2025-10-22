@@ -1,0 +1,31 @@
+🚀 Starting Deployment...
+[INFO] Repository: https://github.com/IndomakHub/stage-one-project.git
+[INFO] Branch: main
+[INFO] Remote Server: ubuntu@3.90.103.160
+[INFO] App Port: 8080
+----------------------------------------
+[INFO] Updating existing repo...
+From https://github.com/IndomakHub/stage-one-project
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[INFO] Transferring files to remote server...
+scp: dest open "/tmp/stage-one-project/.git/objects/0c/b55190b9170d05af0b12b817045a17ed33c922": Permission denied
+scp: upload "./.git/objects/0c/b55190b9170d05af0b12b817045a17ed33c922" to "/tmp/stage-one-project/.git/objects/0c/b55190b9170d05af0b12b817045a17ed33c922" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/20/b4dc76c01c95530ddaa279ca3a564fabd96d04": Permission denied
+scp: upload "./.git/objects/20/b4dc76c01c95530ddaa279ca3a564fabd96d04" to "/tmp/stage-one-project/.git/objects/20/b4dc76c01c95530ddaa279ca3a564fabd96d04" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/2f/404554805972bdccd95b444481b39cecd5bda8": Permission denied
+scp: upload "./.git/objects/2f/404554805972bdccd95b444481b39cecd5bda8" to "/tmp/stage-one-project/.git/objects/2f/404554805972bdccd95b444481b39cecd5bda8" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/da/81e4dee2490490d3a02325b58ff263cce2e0d7": Permission denied
+scp: upload "./.git/objects/da/81e4dee2490490d3a02325b58ff263cce2e0d7" to "/tmp/stage-one-project/.git/objects/da/81e4dee2490490d3a02325b58ff263cce2e0d7" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/da/82349f49f048945c2eee1401f2b516b4a23c6f": Permission denied
+scp: upload "./.git/objects/da/82349f49f048945c2eee1401f2b516b4a23c6f" to "/tmp/stage-one-project/.git/objects/da/82349f49f048945c2eee1401f2b516b4a23c6f" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/ea/661162cd0a059c74831b2ef3af96c1cd52e824": Permission denied
+scp: upload "./.git/objects/ea/661162cd0a059c74831b2ef3af96c1cd52e824" to "/tmp/stage-one-project/.git/objects/ea/661162cd0a059c74831b2ef3af96c1cd52e824" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.idx": Permission denied
+scp: upload "./.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.idx" to "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.idx" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.pack": Permission denied
+scp: upload "./.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.pack" to "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.pack" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.rev": Permission denied
+scp: upload "./.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.rev" to "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.rev" failed
+scp: failed to upload directory . to /tmp/stage-one-project
+[ERROR] Something went wrong! Check logs/deploy_2025-10-22_17:11:24.log for details.

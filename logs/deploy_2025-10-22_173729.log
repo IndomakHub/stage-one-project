@@ -1,0 +1,92 @@
+🚀 Starting Deployment...
+[INFO] Repository: https://github.com/IndomakHub/stage-one-project.git
+[INFO] Branch: main
+[INFO] Remote Server: ubuntu@3.90.103.160
+[INFO] App Port: 8080
+----------------------------------------
+[INFO] Updating existing repo...
+From https://github.com/IndomakHub/stage-one-project
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[INFO] Transferring files to remote server...
+[INFO] Connecting to 3.90.103.160 to deploy...
+== Updating and Installing Dependencies ==
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu noble InRelease
+Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+docker.io is already the newest version (28.2.2-0ubuntu1~24.04.1).
+docker-compose is already the newest version (1.29.2-6ubuntu1).
+nginx is already the newest version (1.24.0-2ubuntu7.5).
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+== Starting Docker and Nginx ==
+Synchronizing state of nginx.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable nginx
+== Preparing Application ==
+app_container
+app_container
+[INFO] Using Dockerfile to build and run...
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  121.9kB
+Step 1/4 : FROM nginx:latest
+ ---> 657fdcd1c365
+Step 2/4 : COPY . /usr/share/nginx/html
+ ---> 478c32edf02e
+Step 3/4 : EXPOSE 8080
+ ---> Running in 7927298ae4cb
+ ---> Removed intermediate container 7927298ae4cb
+ ---> 54fa97f8180e
+Step 4/4 : CMD ["nginx", "-g", "daemon off;"]
+ ---> Running in eb25a574884f
+ ---> Removed intermediate container eb25a574884f
+ ---> 812435351ec3
+Successfully built 812435351ec3
+Successfully tagged myapp:latest
+edadc12deb164326fc90d3ec6d265be59d27c67b94440572cad47aa2245d99e9
+2025/10/22 16:38:01 [warn] 24391#24391: conflicting server name "_" on 0.0.0.0:80, ignored
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+== Checking Container and Nginx Status ==
+CONTAINER ID   IMAGE     COMMAND                  CREATED        STATUS                  PORTS                                                 NAMES
+edadc12deb16   myapp     "/docker-entrypoint.…"   1 second ago   Up Less than a second   80/tcp, 0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   app_container
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2025-10-22 12:03:15 UTC; 4h 34min ago
+       Docs: man:nginx(8)
+    Process: 24402 ExecReload=/usr/sbin/nginx -g daemon on; master_process on; -s reload (code=exited, status=0/SUCCESS)
+   Main PID: 13544 (nginx)
+      Tasks: 3 (limit: 1121)
+     Memory: 2.9M (peak: 4.4M)
+        CPU: 40ms
+     CGroup: /system.slice/nginx.service
+             ├─13544 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
+             ├─13547 "nginx: worker process"
+             └─24405 "nginx: worker process"
+
+Oct 22 12:03:15 ip-172-31-26-126 systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy server...
+Oct 22 12:03:15 ip-172-31-26-126 systemd[1]: Started nginx.service - A high performance web server and a reverse proxy server.
+Oct 22 16:38:01 ip-172-31-26-126 systemd[1]: Reloading nginx.service - A high performance web server and a reverse proxy server...
+Oct 22 16:38:01 ip-172-31-26-126 nginx[24402]: 2025/10/22 16:38:01 [warn] 24402#24402: conflicting server name "_" on 0.0.0.0:80, ignored
+Oct 22 16:38:01 ip-172-31-26-126 nginx[24402]: 2025/10/22 16:38:01 [notice] 24402#24402: signal process started
+Oct 22 16:38:01 ip-172-31-26-126 systemd[1]: Reloaded nginx.service - A high performance web server and a reverse proxy server.
+== Deployment Successful! ==
+ Application is live at: http://3.90.103.160
+----------------------------------------
+ Deployment finished successfully!
+ Logs saved to: logs/deploy_2025-10-22_17:37:29.log

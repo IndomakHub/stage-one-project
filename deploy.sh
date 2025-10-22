@@ -68,7 +68,7 @@ fi
 # Step 4: Transfer Files to Remote Server
 # ===========================
 echo "[INFO] Transferring files to remote server..."
-scp -o StrictHostKeyChecking=no -i "$SSH_KEY" -r . "$SERVER_USER@$SERVER_IP:/tmp/$WORKDIR"
+scp -o StrictHostKeyChecking=no -i "$SSH_KEY" -r * "$SERVER_USER@$SERVER_IP:/tmp/$WORKDIR"
 
 # ===========================
 # Step 5: Remote Setup and Deployment
@@ -103,21 +103,23 @@ else
   sudo docker run -d --name app_container -p $APP_PORT:$APP_PORT myapp
 fi
 
-# Nginx reverse proxy setup
+# --- Nginx Reverse Proxy Setup ---
 NGINX_CONF="/etc/nginx/sites-available/app"
-sudo tee \$NGINX_CONF > /dev/null <<NGINXCONF
+sudo bash -c "cat > \$NGINX_CONF" <<'NGINXCONF'
 server {
   listen 80;
   server_name _;
   location / {
-    proxy_pass http://127.0.0.1:$APP_PORT;
+    proxy_pass http://127.0.0.1:8080;
     proxy_set_header Host \$host;
     proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
   }
 }
 NGINXCONF
 
-sudo ln -sf \$NGINX_CONF /etc/nginx/sites-enabled/app
+sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/app
 sudo nginx -t
 sudo systemctl reload nginx
 

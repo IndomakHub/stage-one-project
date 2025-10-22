@@ -1,0 +1,29 @@
+🚀 Starting Deployment...
+[INFO] Repository: https://github.com/IndomakHub/stage-one-project.git
+[INFO] Branch: main
+[INFO] Remote Server: ubuntu@3.90.103.160
+[INFO] App Port: 8080
+----------------------------------------
+[INFO] Updating existing repo...
+From https://github.com/IndomakHub/stage-one-project
+ * branch            main       -> FETCH_HEAD
+   261f7dd..da81e4d  main       -> origin/main
+Updating 261f7dd..da81e4d
+Fast-forward
+ deploy.sh                                                  |  2 +-
+ dockerfile                                                 |  5 +++++
+ .../deploy_2025-10-22_15\357\200\27215\357\200\27201.log"  | 14 ++++++++++++++
+ stage-one-project                                          |  1 +
+ 4 files changed, 21 insertions(+), 1 deletion(-)
+ create mode 100644 dockerfile
+ create mode 100644 "logs/deploy_2025-10-22_15\357\200\27215\357\200\27201.log"
+ create mode 160000 stage-one-project
+[INFO] Transferring files to remote server...
+scp: dest open "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.idx": Permission denied
+scp: upload "./.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.idx" to "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.idx" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.pack": Permission denied
+scp: upload "./.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.pack" to "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.pack" failed
+scp: dest open "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.rev": Permission denied
+scp: upload "./.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.rev" to "/tmp/stage-one-project/.git/objects/pack/pack-5db28afe85103d0aa742b82c120e08b1ceccb8ae.rev" failed
+scp: failed to upload directory . to /tmp/stage-one-project
+[ERROR] Something went wrong! Check logs/deploy_2025-10-22_16:17:20.log for details.
