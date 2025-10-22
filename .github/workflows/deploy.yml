@@ -15,9 +15,9 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 2: Set up SSH access
-      - name: Set up SSH
+      - name: Create PEM key
         run: |
-          mkdir -p ~/.ssh
+          mkdir -p aws-key.pem
           echo "${{ secrets.AWS_PEM_KEY }}" > aws-key.pem
           chmod 600 aws-key.pem
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
@@ -31,4 +31,4 @@ jobs:
       # Step 4: Run deployment remotely
       - name: Run deployment
         run: |
-          ssh -i aws-key.pem ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "bash ~/deploy.sh"
+          ssh -o StrictHostKeyChecking=no -i aws-key.pem ubuntu@3.90.103.160 "bash ~/deploy.sh"
