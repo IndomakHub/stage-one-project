@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create PEM key from secret
+      - name: Create PEM key from GitHub Secret
         run: |
           echo "${{ secrets.AWS_PEM_KEY }}" > aws-key.pem
           chmod 600 aws-key.pem
@@ -23,7 +23,7 @@ jobs:
           chmod 700 ~/.ssh
           ssh-keyscan -H 3.90.103.160 >> ~/.ssh/known_hosts
 
-      - name: Deploy to EC2
+      - name: Deploy to EC2 via SSH
         run: |
           scp -o StrictHostKeyChecking=no -i aws-key.pem deploy.sh ubuntu@3.90.103.160:/home/ubuntu/deploy.sh
           ssh -i aws-key.pem ubuntu@3.90.103.160 "bash ~/deploy.sh"
