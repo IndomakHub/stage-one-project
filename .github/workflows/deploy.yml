@@ -12,12 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create PEM key
+      - name: Create PEM key from secret
         run: |
           echo "${{ secrets.AWS_PEM_KEY }}" > aws-key.pem
           chmod 600 aws-key.pem
 
-      - name: Add EC2 to known hosts
+      - name: Add EC2 host to known_hosts
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
