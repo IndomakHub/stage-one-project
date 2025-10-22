@@ -18,17 +18,17 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.AWS_PEM_KEY }}" > aws-key.pem
+          chmod 600 aws-key.pem
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       # Step 3: Copy deployment script to server
       - name: Upload deploy.sh to server
         run: |
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa deploy.sh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/deploy.sh
-          ssh -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "chmod +x ~/deploy.sh"
+          scp -o StrictHostKeyChecking=no -i aws-key.pem deploy.sh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/deploy.sh
+          ssh -i aws-key.pem ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "chmod +x ~/deploy.sh"
 
       # Step 4: Run deployment remotely
       - name: Run deployment
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "bash ~/deploy.sh"
+          ssh -i aws-key.pem ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "bash ~/deploy.sh"
