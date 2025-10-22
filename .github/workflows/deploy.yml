@@ -17,7 +17,6 @@ jobs:
       # Step 2: Set up SSH access
       - name: Create PEM key
         run: |
-          mkdir -p aws-key.pem
           echo "${{ secrets.AWS_PEM_KEY }}" > aws-key.pem
           chmod 600 aws-key.pem
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
