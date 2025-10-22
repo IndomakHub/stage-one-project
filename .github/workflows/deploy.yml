@@ -17,13 +17,10 @@ jobs:
           echo "${{ secrets.AWS_PEM_KEY }}" > aws-key.pem
           chmod 600 aws-key.pem
 
-      - name: Setup SSH
+      - name: Add EC2 to known hosts
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-
-      - name: Add host to known_hosts
-        run: |
           ssh-keyscan -H 3.90.103.160 >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
