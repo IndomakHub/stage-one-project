@@ -1,0 +1,9 @@
+🚀 Starting Deployment...
+[INFO] Cloning repository...
+Cloning into 'stage-one-project'...
+Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+[ERROR] Something went wrong! Check logs/deploy_2025-10-22_14:43:11.log for details.

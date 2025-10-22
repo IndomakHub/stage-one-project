@@ -1,0 +1,10 @@
+🚀 Starting Deployment...
+[INFO] Repository: https://github.com/IndomakHub/stage-one-project.git
+[INFO] Branch: main
+[INFO] Remote Server: ubuntu@3.90.103.160
+[INFO] App Port: 8080
+----------------------------------------
+[INFO] Cloning repository...
+Cloning into 'stage-one-project'...
+fatal: Remote branch main not found in upstream origin
+[ERROR] Something went wrong! Check logs/deploy_2025-10-22_14:59:47.log for details.

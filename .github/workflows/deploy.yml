@@ -1,0 +1,34 @@
+name:  Deploy to Ubuntu Server
+
+on:
+  push:
+    branches: [ "main" ]  # Trigger when you push to main branch
+
+jobs:
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout your repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up SSH access
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      # Step 3: Copy deployment script to server
+      - name: Upload deploy.sh to server
+        run: |
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa deploy.sh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/deploy.sh
+          ssh -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "chmod +x ~/deploy.sh"
+
+      # Step 4: Run deployment remotely
+      - name: Run deployment
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "bash ~/deploy.sh"
