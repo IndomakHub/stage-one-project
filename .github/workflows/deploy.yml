@@ -1,33 +1,32 @@
-name:  Deploy to Ubuntu Server
+name: Deploy to EC2
 
 on:
   push:
-    branches: [ "main" ]  # Trigger when you push to main branch
+    branches: [ main ]
 
 jobs:
   deploy:
-    name: Deploy to Server
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout your repository
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up SSH access
       - name: Create PEM key
         run: |
           echo "${{ secrets.AWS_PEM_KEY }}" > aws-key.pem
           chmod 600 aws-key.pem
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      # Step 3: Copy deployment script to server
-      - name: Upload deploy.sh to server
+      - name: Setup SSH
         run: |
-          scp -o StrictHostKeyChecking=no -i aws-key.pem deploy.sh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/deploy.sh
-          ssh -i aws-key.pem ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "chmod +x ~/deploy.sh"
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
 
-      # Step 4: Run deployment remotely
-      - name: Run deployment
+      - name: Add host to known_hosts
         run: |
-          ssh -o StrictHostKeyChecking=no -i aws-key.pem ubuntu@3.90.103.160 "bash ~/deploy.sh"
+          ssh-keyscan -H 3.90.103.160 >> ~/.ssh/known_hosts
+
+      - name: Deploy to EC2
+        run: |
+          scp -o StrictHostKeyChecking=no -i aws-key.pem deploy.sh ubuntu@3.90.103.160:/home/ubuntu/deploy.sh
+          ssh -i aws-key.pem ubuntu@3.90.103.160 "bash ~/deploy.sh"
